@@ -281,37 +281,330 @@ window.updateFlowPoints = function(data = {}) {
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
 <script>
-(async function connectLINE() {
-  const nameElement = document.getElementById("point-username");
+(async function startFlowPoint() {
+  const API_URL =
+    "https://vocnegriqfzsstyobvdm.supabase.co/functions/v1/flowx-points";
 
-  try {
-    if (nameElement) {
-      nameElement.textContent = "กำลังเชื่อมต่อ...";
+  const LIFF_ID = "2012241805-jzGFz6mb";
+
+  const nameElement = document.getElementById("point-username");
+  const claimButton = document.getElementById("checkin-button");
+  const claimLabel = claimButton.querySelector("span");
+
+  let busy = false;
+  let wallet = null;
+
+  /*
+    วางสถานะและประวัติไว้นอกภาพบัตร
+    เพื่อไม่ให้ตำแหน่งข้อความบนภาพเลื่อน
+  */
+  const extra = document.createElement("section");
+
+  extra.style.cssText = `
+    max-width:650px;
+    margin:0 auto;
+    padding:18px;
+    background:#f4f4ef;
+    color:#18181b;
+    font-family:"Noto Sans Thai",sans-serif;
+  `;
+
+  extra.innerHTML = `
+    <p id="flow-status" role="status"
+       style="margin:0 0 12px;line-height:1.7">
+      กำลังเชื่อมต่อ LINE...
+    </p>
+
+    <button id="flow-refresh" type="button" disabled
+      style="padding:10px 16px;border:0;border-radius:8px;
+      background:#c4ff00;color:#18181b;font:inherit;
+      font-weight:800;cursor:pointer">
+      รีเฟรชยอดแต้ม
+    </button>
+
+    <details style="margin-top:18px">
+      <summary style="cursor:pointer;font-weight:800">
+        ประวัติรับ / ใช้แต้ม
+      </summary>
+      <div id="flow-history" style="margin-top:12px"></div>
+    </details>
+  `;
+
+  document.querySelector(".page").after(extra);
+
+  const statusElement = document.getElementById("flow-status");
+  const historyElement = document.getElementById("flow-history");
+  const refreshButton = document.getElementById("flow-refresh");
+
+  function setStatus(message) {
+    statusElement.textContent = message;
+  }
+
+  function number(value) {
+    return Number(value).toLocaleString("th-TH");
+  }
+
+  function updateButton() {
+    const ready =
+      !busy &&
+      wallet?.has_active_cycle === true &&
+      Number(wallet.pending_points) > 0;
+
+    claimButton.disabled = !ready;
+    claimButton.style.cursor = ready ? "pointer" : "not-allowed";
+
+    claimLabel.style.fontSize = "3.4cqw";
+
+    if (busy) {
+      claimLabel.textContent = "กำลังดำเนินการ...";
+    } else if (!wallet) {
+      claimLabel.textContent = "รอเชื่อมต่อ";
+    } else if (!wallet.has_active_cycle) {
+      claimLabel.textContent = "ยังไม่เปิดรอบแต้ม";
+    } else if (Number(wallet.pending_points) > 0) {
+      claimLabel.textContent = "เช็กอินรับแต้ม";
+    } else {
+      claimLabel.textContent = "ไม่มีแต้มรอรับ";
+    }
+  }
+
+  function renderWallet(data) {
+    wallet = data;
+
+    nameElement.textContent = data.username || "LINE Customer";
+    nameElement.title = data.username || "";
+
+    document.getElementById("point-balance").textContent =
+      number(data.balance);
+
+    document.getElementById("point-value").textContent =
+      number(data.balance) + " บาท";
+
+    document.getElementById("point-earned").textContent =
+      number(data.earned);
+
+    document.getElementById("point-used").textContent =
+      number(data.used);
+
+    const expiry = document.getElementById("point-expiry");
+
+    if (data.has_active_cycle && data.expires_on) {
+      /*
+        ends_on คือวันเริ่มใช้แต้มรอบเก่าไม่ได้
+        แสดงเป็นวันที่ "หมดอายุ" โดยตรง
+      */
+      expiry.textContent = new Date(
+        data.expires_on + "T00:00:00+07:00"
+      ).toLocaleDateString("th-TH", {
+        day: "numeric",
+        month: "short",
+        year: "2-digit"
+      });
+
+      expiry.title =
+        "แต้มหมดอายุเวลา 00:00 น. ของวันที่นี้ ตามเวลาไทย";
+    } else {
+      expiry.textContent = "ยังไม่กำหนด";
     }
 
+    historyElement.replaceChildren();
+
+    const history = Array.isArray(data.history) ? data.history : [];
+
+    if (history.length === 0) {
+      historyElement.textContent = "ยังไม่มีประวัติรายการ";
+    }
+
+    for (const item of history) {
+      const row = document.createElement("div");
+      row.style.cssText =
+        "padding:12px 0;border-bottom:1px solid #d5d5da";
+
+      const heading = document.createElement("strong");
+      const amount = Number(item.amount);
+
+      heading.textContent =
+        (amount > 0 ? "+" : "") + number(amount) + " แต้ม";
+
+      heading.style.color = amount > 0 ? "#386200" : "#8b2552";
+
+      const note = document.createElement("div");
+      note.textContent = item.note;
+
+      const date = document.createElement("small");
+      date.textContent = new Date(
+        item.created_at
+      ).toLocaleString("th-TH", {
+        timeZone: "Asia/Bangkok"
+      });
+
+      row.append(heading, note, date);
+      historyElement.append(row);
+    }
+
+    updateButton();
+  }
+
+  const errorMessages = {
+    LINE_LOGIN_REQUIRED: "กรุณาปิดแล้วเปิดบัตรจาก LINE อีกครั้ง",
+    LINE_LOGIN_EXPIRED: "การเข้าสู่ระบบหมดอายุ กรุณาปิดแล้วเปิดบัตรใหม่",
+    INVALID_LINE_IDENTITY: "ตรวจสอบบัญชี LINE ไม่สำเร็จ",
+    CUSTOMER_SETUP_FAILED: "บันทึกบัญชีลูกค้าไม่สำเร็จ กรุณาแจ้งแอดมิน",
+    SERVER_NOT_CONFIGURED: "ระบบยังตั้งค่าไม่ครบ กรุณาแจ้งแอดมิน",
+    CLAIM_FAILED: "รับแต้มไม่สำเร็จ กรุณารีเฟรชยอดก่อนลองใหม่",
+    WALLET_READ_FAILED: "อ่านยอดล่าสุดไม่สำเร็จ กรุณากดรีเฟรชยอดแต้ม",
+    TEMPORARY_SERVER_ERROR: "ระบบขัดข้องชั่วคราว กรุณาลองใหม่ภายหลัง"
+  };
+
+  async function callAPI(action) {
+    const idToken = liff.getIDToken();
+
+    if (!idToken) {
+      throw new Error("กรุณาปิดแล้วเปิดบัตรจาก LINE อีกครั้ง");
+    }
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        action,
+        idToken
+      })
+    });
+
+    let result;
+
+    try {
+      result = await response.json();
+    } catch {
+      throw new Error("ระบบตอบกลับไม่สมบูรณ์ กรุณาลองใหม่");
+    }
+
+    if (!response.ok || !result.ok) {
+      let message =
+        errorMessages[result.error] ||
+        "เชื่อมต่อระบบไม่สำเร็จ กรุณาลองใหม่";
+
+      if (result.claim?.status === "claimed") {
+        message =
+          "รับแต้มสำเร็จแล้ว แต่ยังอ่านยอดใหม่ไม่ได้ กรุณากดรีเฟรชยอดแต้ม";
+      }
+
+      throw new Error(message);
+    }
+
+    return result;
+  }
+
+  function describeWallet(data) {
+    if (!data.has_active_cycle) {
+      return "เชื่อมต่อ LINE สำเร็จ กำลังรอแอดมินกำหนดรอบสะสมแต้ม";
+    }
+
+    if (Number(data.pending_points) > 0) {
+      return (
+        "มีแต้มรอรับ " +
+        number(data.pending_points) +
+        " แต้ม กดเช็กอินเพื่อรับได้เลย"
+      );
+    }
+
+    return "ยอดแต้มเป็นปัจจุบัน ไม่มีออเดอร์ที่ยืนยันแล้วรอรับแต้ม";
+  }
+
+  async function refreshWallet() {
+    if (busy) return;
+
+    busy = true;
+    refreshButton.disabled = true;
+    updateButton();
+    setStatus("กำลังตรวจสอบยอดแต้ม...");
+
+    try {
+      const result = await callAPI("wallet");
+      renderWallet(result.wallet);
+      setStatus(describeWallet(result.wallet));
+    } catch (error) {
+      wallet = null;
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : "เชื่อมต่อระบบไม่สำเร็จ"
+      );
+    } finally {
+      busy = false;
+      refreshButton.disabled = false;
+      updateButton();
+    }
+  }
+
+  claimButton.addEventListener("click", async function() {
+    if (
+      busy ||
+      !wallet?.has_active_cycle ||
+      Number(wallet.pending_points) <= 0
+    ) {
+      return;
+    }
+
+    busy = true;
+    refreshButton.disabled = true;
+    updateButton();
+    setStatus("กำลังตรวจสอบสิทธิ์และรับแต้ม...");
+
+    try {
+      const result = await callAPI("claim");
+      renderWallet(result.wallet);
+
+      if (result.claim?.status === "claimed") {
+        setStatus(
+          "รับสำเร็จ +" +
+          number(result.claim.claimed_points) +
+          " แต้ม จาก " +
+          number(result.claim.claimed_orders) +
+          " ออเดอร์"
+        );
+      } else {
+        setStatus(describeWallet(result.wallet));
+      }
+    } catch (error) {
+      wallet = null;
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : "รับแต้มไม่สำเร็จ กรุณารีเฟรชยอด"
+      );
+    } finally {
+      busy = false;
+      refreshButton.disabled = false;
+      updateButton();
+    }
+  });
+
+  refreshButton.addEventListener("click", refreshWallet);
+
+  try {
+    nameElement.textContent = "กำลังเชื่อมต่อ...";
+    updateButton();
+
     await liff.init({
-      liffId: "2012241805-jzGFz6mb",
+      liffId: LIFF_ID,
       withLoginOnExternalBrowser: true
     });
 
     if (!liff.isLoggedIn()) {
+      setStatus("กรุณาเข้าสู่ระบบ LINE");
       return;
     }
 
-    const profile = await liff.getProfile();
-
-    if (nameElement) {
-      nameElement.textContent = profile.displayName;
-      nameElement.title = profile.displayName;
-    }
-  } catch (error) {
-    if (nameElement) {
-      nameElement.textContent = "เชื่อมต่อไม่สำเร็จ";
-    }
-
-    console.error("เชื่อมต่อ LINE ไม่สำเร็จ", error);
+    await refreshWallet();
+  } catch {
+    nameElement.textContent = "เชื่อมต่อไม่สำเร็จ";
+    setStatus("เปิด LINE ไม่สำเร็จ กรุณาปิดแล้วเปิดบัตรใหม่");
+    updateButton();
   }
 })();
 </script>
-</body>
 </html>

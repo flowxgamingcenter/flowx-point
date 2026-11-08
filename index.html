@@ -2,51 +2,281 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#c4ff00">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FLOW POINT | FLOWX</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Noto+Sans+Thai:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
 * {
   box-sizing: border-box;
 }
 
-html {
-  background: #18181b;
-}
-
 body {
   margin: 0;
+  background: #18181b;
+  font-family: "Noto Sans Thai", sans-serif;
 }
 
 .page {
+  position: relative;
   width: 100%;
   max-width: 650px;
-  margin: 0 auto;
-  background: #f4f4ef;
+  margin: auto;
+  container-type: inline-size;
 }
 
-.design {
+.art {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* ข้อความจริง วางตรงช่องในภาพ */
+.field {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.username {
+  left: 16.2%;
+  top: 19.1%;
+  width: 17.5%;
+  height: 1.5%;
+  color: white;
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 2.7cqw;
+  font-weight: 700;
+}
+
+.balance {
+  left: 13.5%;
+  top: 26.4%;
+  width: 43%;
+  height: 1.85%;
+  color: #c4ff00;
+  font-size: 5.7cqw;
+}
+
+.value {
+  left: 65%;
+  top: 26.75%;
+  width: 23%;
+  height: 2.4%;
+  justify-content: center;
+  color: #111;
+  font-size: 5.1cqw;
+}
+
+.earned {
+  left: 12.9%;
+  top: 37.15%;
+  width: 28%;
+  height: 1.7%;
+  color: white;
+  font-size: 4.5cqw;
+}
+
+.used {
+  left: 56.5%;
+  top: 37.15%;
+  width: 28%;
+  height: 1.7%;
+  color: white;
+  font-size: 4.5cqw;
+}
+
+.expiry {
+  left: 53.5%;
+  top: 40.65%;
+  width: 19.6%;
+  height: 1.5%;
+  justify-content: center;
+  color: #101010;
+  font-size: 3.4cqw;
+}
+
+/* ปุ่มจริงทับบนกรอบปุ่มในภาพ */
+.checkin {
+  position: absolute;
+  left: 14.65%;
+  top: 50.25%;
+  width: 70.8%;
+  height: 4.35%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #101010;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-size: 4.5cqw;
+  font-style: italic;
+  font-weight: 900;
+  cursor: not-allowed;
+}
+
+.checkin span {
+  position: absolute;
+  left: 24%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 53%;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.error {
+  margin: 0;
+  padding: 20px;
+  background: white;
+  color: #111;
+}
+
+.error[hidden] {
+  display: none;
 }
 </style>
 </head>
 
 <body>
-  <main class="page">
-    <img
-      class="design"
-      src="flowx-design.png"
-      alt="FLOWX FLOW POINT บัตรสะสมแต้มเกม MLBB:
-      1 FLOW POINT เท่ากับ 1 บาท
-      แพ็ก 1,412 เพชร ราคา 645 บาท รับ 20 แต้ม
-      แพ็ก 3,688 เพชร ราคา 1,580 บาท รับ 50 แต้ม
-      แพ็ก 9,288 เพชร ราคา 3,950 บาท รับ 125 แต้ม
+<main class="page" aria-label="FLOWX บัตรสะสมแต้มเกม MLBB">
+
+  <img
+    class="art"
+    src="flowx-live-bg.png"
+    alt=""
+    onerror="document.getElementById('image-error').hidden=false"
+  >
+
+  <p class="error" id="image-error" hidden>
+    ไม่พบภาพ flowx-live-bg.png
+    กรุณาอัปโหลดไว้โฟลเดอร์เดียวกับ index.html
+  </p>
+
+  <span class="field username" id="point-username">
+    USERNAME
+  </span>
+
+  <output
+    class="field balance"
+    id="point-balance"
+    aria-label="แต้มคงเหลือ"
+    aria-live="polite"
+  >—</output>
+
+  <output
+    class="field value"
+    id="point-value"
+    aria-label="มูลค่าส่วนลด"
+  >— บาท</output>
+
+  <output
+    class="field earned"
+    id="point-earned"
+    aria-label="แต้มสะสมทั้งหมด"
+  >—</output>
+
+  <output
+    class="field used"
+    id="point-used"
+    aria-label="แต้มที่ใช้ไปแล้ว"
+  >—</output>
+
+  <span class="field expiry" id="point-expiry">
+    ทุก 3 เดือน
+  </span>
+
+  <button
+    class="checkin"
+    id="checkin-button"
+    disabled
+    aria-describedby="checkin-note"
+  >
+    <span>เช็กอินรับแต้ม</span>
+  </button>
+
+  <p class="sr-only" id="checkin-note">
+    ระบบเช็กอินยังไม่เปิดใช้งาน
+    รอเชื่อมระบบ LINE และยืนยันออเดอร์
+  </p>
+
+  <section class="sr-only" aria-label="ข้อมูลแพ็กและเงื่อนไข">
+    <h1>FLOW POINT</h1>
+
+    <p>1 FLOW POINT เท่ากับ 1 บาท</p>
+
+    <ul>
+      <li>1,412 เพชร ราคา 645 บาท รับ 20 FLOW POINT</li>
+      <li>3,688 เพชร ราคา 1,580 บาท รับ 50 FLOW POINT</li>
+      <li>9,288 เพชร ราคา 3,950 บาท รับ 125 FLOW POINT</li>
+    </ul>
+
+    <p>
+      ใช้แต้มแลกแพ็กเกม หรือใช้ลดราคาได้
+      แจ้งแอดมินเพื่อใช้แต้ม
+      เฉพาะแพ็ก MLBB ที่ร่วมรายการ
       แต้มรีเซ็ตทุก 3 เดือน
-      ระบบเช็กอินยังไม่เปิดใช้งาน"
-    >
-  </main>
+    </p>
+  </section>
+
+</main>
+
+<script>
+/*
+  ใช้แสดงข้อมูลที่รับจากระบบหลังบ้านในขั้นต่อไป
+  ฟังก์ชันนี้ไม่เพิ่มแต้ม และไม่เปิดปุ่มเช็กอิน
+*/
+window.updateFlowPoints = function(data = {}) {
+  const format = value => {
+    if (
+      typeof value !== "number" ||
+      !Number.isFinite(value) ||
+      value < 0
+    ) {
+      return "—";
+    }
+
+    return value.toLocaleString("th-TH", {
+      maximumFractionDigits: 0
+    });
+  };
+
+  document.getElementById("point-username").textContent =
+    typeof data.username === "string" && data.username.trim()
+      ? data.username
+      : "USERNAME";
+
+  document.getElementById("point-balance").textContent =
+    format(data.balance);
+
+  document.getElementById("point-value").textContent =
+    format(data.balance) + " บาท";
+
+  document.getElementById("point-earned").textContent =
+    format(data.earned);
+
+  document.getElementById("point-used").textContent =
+    format(data.used);
+};
+</script>
 </body>
 </html>

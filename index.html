@@ -278,5 +278,40 @@ window.updateFlowPoints = function(data = {}) {
     format(data.used);
 };
 </script>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+<script>
+(async function connectLINE() {
+  const nameElement = document.getElementById("point-username");
+
+  try {
+    if (nameElement) {
+      nameElement.textContent = "กำลังเชื่อมต่อ...";
+    }
+
+    await liff.init({
+      liffId: "2012241805-jzGFz6mb",
+      withLoginOnExternalBrowser: true
+    });
+
+    if (!liff.isLoggedIn()) {
+      return;
+    }
+
+    const profile = await liff.getProfile();
+
+    if (nameElement) {
+      nameElement.textContent = profile.displayName;
+      nameElement.title = profile.displayName;
+    }
+  } catch (error) {
+    if (nameElement) {
+      nameElement.textContent = "เชื่อมต่อไม่สำเร็จ";
+    }
+
+    console.error("เชื่อมต่อ LINE ไม่สำเร็จ", error);
+  }
+})();
+</script>
 </body>
 </html>

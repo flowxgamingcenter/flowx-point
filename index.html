@@ -1,945 +1,956 @@
+ได้จ้า คัดลอกโค้ดทั้งหมดนี้แทนไฟล์ HTML เดิมได้เลย 💚
+
+ดาวน์โหลด [ภาพหัวเว็บ](C:/Users/beam/Documents/Codex/2026-11-04/referenced-chatgpt-conversation-this-is-an/outputs/flowx-puzzle/assets/ego-hero.png) แล้ววางชื่อ **`ego-hero.png` ไว้ข้างไฟล์ HTML** จ้า
+
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#c4ff00">
 <title>FLOW POINT | FLOWX</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-/* ===== FLOWX CYBER HUD FRAME V2 ===== */
-
-.hud-wrap{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  margin:18px 0 30px;
+:root {
+  --lime: #c4ff00;
+  --ink: #17171b;
+  --purple: #8846eb;
+  --paper: #f5f5f1;
 }
 
-.hud-box{
-  position:relative;
-  padding:22px 18px 18px;
-  background:
-    linear-gradient(180deg, rgba(4,12,30,.96), rgba(2,8,20,.96));
-  border:1px solid rgba(53,183,255,.55);
-  clip-path:polygon(
-    18px 0,
-    calc(100% - 36px) 0,
-    100% 18px,
-    100% calc(100% - 18px),
-    calc(100% - 18px) 100%,
-    18px 100%,
-    0 calc(100% - 18px),
-    0 18px
-  );
-  box-shadow:
-    0 0 0 1px rgba(53,183,255,.12) inset,
-    0 0 16px rgba(53,183,255,.22),
-    0 0 34px rgba(11,88,255,.14);
-  overflow:hidden;
+* {
+  box-sizing: border-box;
 }
-
-/* เส้นกรอบเรือง */
-.hud-box::before{
-  content:"";
-  position:absolute;
-  inset:8px;
-  border:1px solid rgba(53,183,255,.22);
-  clip-path:polygon(
-    12px 0,
-    calc(100% - 28px) 0,
-    100% 12px,
-    100% calc(100% - 12px),
-    calc(100% - 12px) 100%,
-    12px 100%,
-    0 calc(100% - 12px),
-    0 12px
-  );
-  pointer-events:none;
-}
-
-/* ลายเส้น tech */
-.hud-box::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg, transparent 0 80%, rgba(53,183,255,.06) 80% 100%),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 34px,
-      rgba(53,183,255,.05) 34px 35px
-    );
-  opacity:.55;
-  pointer-events:none;
-}
-
-.hud-main{
-  min-height:auto;
-  padding-top:34px;
-}
-
-.hud-mini{
-  padding-top:30px;
-}
-
-/* แถบชื่อบนกรอบ */
-.hud-cap{
-  position:absolute;
-  top:0;
-  left:18px;
-  transform:translateY(-50%);
-  background:linear-gradient(90deg,#0d2a57,#103a79);
-  color:#9ce8ff;
-  padding:7px 16px 7px 12px;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  border:1px solid #39bcff;
-  clip-path:polygon(
-    0 0,
-    calc(100% - 12px) 0,
-    100% 50%,
-    calc(100% - 12px) 100%,
-    0 100%,
-    8px 50%
-  );
-  box-shadow:
-    0 0 10px rgba(53,183,255,.35),
-    inset 0 0 8px rgba(53,183,255,.15);
-  z-index:3;
-}
-
-/* จุดไฟ */
-.hud-dot{
-  position:absolute;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#36c0ff;
-  box-shadow:0 0 10px #36c0ff, 0 0 18px #36c0ff;
-  z-index:3;
-}
-.dot-a{top:16px; right:14px;}
-.dot-b{bottom:14px; left:14px;}
-.dot-c{top:50%; right:10px;}
-
-/* USERNAME chip */
-.hud-user{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-top:2px;
-  margin-bottom:10px;
-  padding:5px 12px;
-  color:#a9ebff;
-  background:rgba(11,34,68,.9);
-  border:1px solid rgba(53,183,255,.5);
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:1px;
-  clip-path:polygon(
-    8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%
-  );
-}
-.hud-user::before{
-  content:"";
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#36c0ff;
-  box-shadow:0 0 8px #36c0ff;
-}
-
-.hud-title{
-  font-size:20px;
-  font-weight:900;
-  line-height:1.1;
-  margin-bottom:14px;
-  color:#ffffff;
-  letter-spacing:.3px;
-  text-transform:uppercase;
-  text-shadow:0 0 10px rgba(78,172,255,.28);
-}
-
-.hud-balance-row{
-  display:grid;
-  grid-template-columns:1fr 132px;
-  gap:12px;
-  align-items:stretch;
-}
-
-.hud-balance{
-  padding:16px 14px;
-  background:linear-gradient(180deg, rgba(11,41,92,.78), rgba(5,17,43,.82));
-  border:1px solid rgba(53,183,255,.48);
-  clip-path:polygon(
-    12px 0,
-    100% 0,
-    100% calc(100% - 12px),
-    calc(100% - 12px) 100%,
-    0 100%,
-    0 12px
-  );
-  box-shadow:inset 0 0 18px rgba(53,183,255,.08);
-}
-
-.hud-balance-label{
-  display:block;
-  color:#9bcfff;
-  font-size:12px;
-  margin-bottom:8px;
-  font-weight:700;
-}
-
-.hud-balance strong{
-  display:block;
-  font-size:56px;
-  line-height:1;
-  color:#ffe33a;
-  font-weight:900;
-  text-shadow:
-    0 0 8px rgba(255,227,58,.28),
-    0 0 18px rgba(255,227,58,.18);
-}
-
-.hud-balance small{
-  display:block;
-  margin-top:10px;
-  color:#e6f5ff;
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:.7px;
-}
-
-.hud-side-stat{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:14px 12px;
-  background:linear-gradient(180deg, rgba(30,39,10,.58), rgba(18,22,8,.72));
-  border:1px solid rgba(255,227,58,.42);
-  clip-path:polygon(
-    10px 0,
-    100% 0,
-    100% calc(100% - 10px),
-    calc(100% - 10px) 100%,
-    0 100%,
-    0 10px
-  );
-}
-
-.hud-side-stat span{
-  color:#d5ecff;
-  font-size:11px;
-  font-weight:700;
-  margin-bottom:8px;
-}
-
-.hud-side-stat b{
-  color:#ffe33a;
-  font-size:19px;
-  line-height:1.25;
-  font-weight:900;
-}
-
-/* status box */
-.hud-mini-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.hud-mini-card{
-  padding:14px 12px;
-  background:linear-gradient(180deg, rgba(10,31,68,.82), rgba(4,13,31,.92));
-  border:1px solid rgba(53,183,255,.38);
-  clip-path:polygon(
-    10px 0,
-    100% 0,
-    100% calc(100% - 10px),
-    calc(100% - 10px) 100%,
-    0 100%,
-    0 10px
-  );
-  box-shadow:inset 0 0 14px rgba(53,183,255,.04);
-}
-
-.hud-mini-card.full{
-  grid-column:1 / -1;
-}
-
-.hud-mini-card span{
-  display:block;
-  font-size:11px;
-  color:#9fd3ff;
-  margin-bottom:8px;
-  font-weight:700;
-}
-
-.hud-mini-card strong{
-  font-size:24px;
-  color:#ffffff;
-  font-weight:900;
-}
-
-/* rules */
-.hud-rule-text{
-  color:#d8efff;
-  font-size:13px;
-  line-height:1.75;
-  margin-bottom:14px;
-}
-
-.hud-checkin{
-  width:100%;
-  border:1px solid #fff1a0;
-  padding:15px 12px;
-  font:900 18px Kanit,sans-serif;
-  color:#071226;
-  background:linear-gradient(180deg,#fff36d,#ffc600);
-  clip-path:polygon(
-    10px 0,
-    100% 0,
-    100% calc(100% - 10px),
-    calc(100% - 10px) 100%,
-    0 100%,
-    0 10px
-  );
-  box-shadow:
-    0 5px 0 #946600,
-    0 0 14px rgba(255,213,0,.22);
-}
-
-.hud-checkin:disabled{
-  opacity:.82;
-  cursor:not-allowed;
-}
-
-.hud-note{
-  margin:12px 0 0;
-  color:#9bb8db;
-  font-size:11px;
-  text-align:center;
-  line-height:1.5;
-}
-
-@media (max-width:520px){
-  .hud-box{
-    padding:20px 14px 16px;
-  }
-
-  .hud-balance-row{
-    grid-template-columns:1fr;
-  }
-
-  .hud-balance strong{
-    font-size:46px;
-  }
-
-  .hud-side-stat b{
-    font-size:18px;
-  }
-
-  .hud-mini-grid{
-    grid-template-columns:1fr;
-  }
-
-  .hud-mini-card.full{
-    grid-column:auto;
-  }
-}
-  :root{
-  --blue:#1677ff;
-  --yellow:#ffe32b;
-  --navy:#050f28;
-  --white:#f7faff;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  color:var(--white);
-  font-family:Kanit,sans-serif;
-  background:#030917;
-}
-.page{
-  min-height:100vh;
-  max-width:650px;
-  margin:auto;
-  padding:30px 18px 55px;
-  position:relative;
-  overflow:hidden;
-  background:
-   radial-gradient(ellipse at 75% 5%,#1766c570,transparent 36%),
-   radial-gradient(ellipse at 0% 65%,#0952a65c,transparent 45%),
-   repeating-linear-gradient(150deg,transparent 0 75px,#1681ff0b 76px 78px),
-   linear-gradient(160deg,#071632,#030816 70%);
-}
-.page:before{
-  content:"";
-  position:absolute;
-  width:440px;height:440px;
-  border:2px solid #247dff35;
-  border-radius:50%;
-  top:-190px;right:-180px;
-  box-shadow:0 0 90px #126aff55;
-  pointer-events:none;
-}
-.top{
-  text-align:center;
-  position:relative;
-  z-index:1;
-}
-.brand{
-  font-size:31px;
-  font-weight:900;
-  font-style:italic;
-  letter-spacing:2px;
-}
-.brand span{color:var(--yellow)}
-.small{
-  font-size:11px;
-  letter-spacing:5px;
-  opacity:.8;
-}
-.tag{
-  display:inline-block;
-  margin-top:17px;
-  background:var(--yellow);
-  color:#05122c;
-  font-weight:800;
-  padding:5px 21px;
-  transform:skew(-9deg);
-  box-shadow:5px 5px 0 #087bff;
-}
-h1{
-  margin:17px 0 0;
-  font-size:clamp(42px,11vw,68px);
-  line-height:1;
-  font-style:italic;
-  font-weight:900;
-  letter-spacing:-2px;
-  text-shadow:4px 5px 0 #0757cc,0 0 35px #1788ff;
-}
-h1 span{color:var(--yellow)}
-.subtitle{
-  margin:12px 0 26px;
-  font-size:16px;
-}
-.card{
-  position:relative;
-  border:2px solid #4b9dff;
-  border-radius:24px;
-  padding:25px 20px;
-  background:
-   linear-gradient(130deg,#132d60eb,#060f27f5);
-  box-shadow:0 0 35px #087aff45,inset 0 0 30px #1a6dff1e;
-  overflow:hidden;
-}
-.card:after{
-  content:"10";
-  position:absolute;
-  right:-12px;top:25px;
-  font-size:170px;
-  font-weight:900;
-  color:#ffffff08;
-  line-height:1;
-  pointer-events:none;
-}
-.card>*{position:relative;z-index:1}
-.eyebrow{
-  color:#a7ceff;
-  font-size:13px;
-  letter-spacing:2px;
-}
-.balance{
-  font-size:76px;
-  font-weight:900;
-  line-height:1.2;
-  color:var(--yellow);
-  text-shadow:0 0 30px #ffdf2a66;
-}
-.unit{
-  font-size:15px;
-  letter-spacing:2px;
-}
-.status{
-  display:inline-block;
-  background:#1c365b;
-  border:1px solid #4776b9;
-  border-radius:30px;
-  padding:5px 12px;
-  font-size:12px;
-  margin-top:9px;
-}
-.checkin{
-  width:100%;
-  border:0;
-  border-radius:14px;
-  padding:17px 12px;
-  margin-top:23px;
-  font:800 24px Kanit,sans-serif;
-  color:#081227;
-  background:linear-gradient(120deg,#fff76a,#ffc900);
-  box-shadow:0 7px 0 #a66d00,0 0 28px #ffe23565;
-}
-.checkin:disabled{
-  cursor:not-allowed;
-  opacity:.75;
-}
-.rate{
-  margin:26px 0;
-  text-align:center;
-  border:1px solid #e9dd4e;
-  padding:14px;
-  border-radius:12px;
-  font-size:19px;
-  font-weight:800;
-  background:#ffe32b12;
-}
-.rate strong{color:var(--yellow)}
-.heading{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:24px 0 13px;
-  font-size:21px;
-  font-weight:800;
-}
-.heading:before{
-  content:"";
-  width:6px;height:26px;
-  background:var(--yellow);
-  transform:skew(-15deg);
-}
-.pack{
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:center;
-  gap:12px;
-  margin:10px 0;
-  padding:15px;
-  border:1px solid #3279d7;
-  border-radius:13px;
-  background:linear-gradient(110deg,#19396a,#08162f);
-}
-.diamond{font-weight:800;font-size:21px}
-.price{color:#a9d0ff;font-size:13px}
-.reward{
-  padding:8px 12px;
-  border-radius:9px;
-  color:#09132c;
-  background:var(--yellow);
-  text-align:center;
-  font-size:12px;
-  font-weight:700;
-}
-.reward b{
-  display:block;
-  font-size:29px;
-  line-height:1.1;
-}
-.info{
-  border-top:1px solid #355c8c;
-  padding-top:20px;
-  margin-top:25px;
-  text-align:center;
-  line-height:1.9;
-}
-.info strong{color:var(--yellow)}
-.note{
-  color:#b5c9e9;
-  font-size:12px;
-  margin-top:15px;
-  text-align:center;
-}
-.footer{
-  text-align:center;
-  margin-top:36px;
-  color:#648bbe;
-  font-size:12px;
-}
-
-/* FLOW POINT — BLUELOCK THEME V2 */
 
 body {
-  background: #020713;
+  margin: 0;
+  background: #242329;
+  color: var(--ink);
+  font-family: "Noto Sans Thai", sans-serif;
 }
 
 .page {
+  max-width: 650px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 0 18px 28px;
+  position: relative;
   isolation: isolate;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse at 50% 0%, #086dff80, transparent 42%),
-    radial-gradient(ellipse at 100% 55%, #064fb84d, transparent 48%),
-    repeating-linear-gradient(90deg,
-      transparent 0 62px, #3e8fff0b 63px 64px),
-    repeating-linear-gradient(0deg,
-      transparent 0 62px, #3e8fff0b 63px 64px),
-    linear-gradient(180deg, #081e42, #020713 78%);
-  box-shadow: 0 0 65px #0753c52b;
+    repeating-linear-gradient(
+      136deg,
+      transparent 0 130px,
+      #18181b09 131px 133px
+    ),
+    radial-gradient(
+      ellipse at 100% 55%,
+      #9d66ed20,
+      transparent 45%
+    ),
+    var(--paper);
+  box-shadow: 0 0 70px #0005;
 }
 
-.page:before {
+.page::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto;
-  width: auto;
-  height: 370px;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  background:
-    linear-gradient(145deg,
-      transparent 38%, #3298ff24 40%,
-      transparent 43%),
-    linear-gradient(160deg,
-      transparent 58%, #ffe52a15 60%,
-      transparent 63%);
+  inset: 360px -35px 0;
+  z-index: -1;
+  background: linear-gradient(
+    140deg,
+    transparent 30%,
+    #c4ff0040 30% 31%,
+    transparent 31% 65%,
+    #8846eb20 65% 67%,
+    transparent 67%
+  );
   pointer-events: none;
 }
 
-.page > * {
+.tech {
+  font-family:
+    "Chakra Petch",
+    "Noto Sans Thai",
+    sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* ส่วนหัว */
+
+.hero {
+  position: relative;
+  height: 315px;
+  margin: 0 -18px 10px;
+  padding: 24px 24px 0;
+  background:
+    url("ego-hero.png")
+    center 36% / cover no-repeat;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      #f5f5f1d9,
+      transparent 65%
+    ),
+    linear-gradient(
+      0deg,
+      var(--paper),
+      transparent 25%
+    );
+}
+
+.hero > * {
   position: relative;
   z-index: 1;
 }
 
-/* ส่วนหัว */
-.top {
-  padding: 15px 6px 8px;
-}
-
 .brand {
-  font-size: 35px;
-  font-style: italic;
-  text-shadow: 0 0 25px #198bff99;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 1px;
 }
 
 .brand span {
-  color: #ffe326;
+  color: #77a400;
+}
+
+.brand small {
+  display: block;
+  margin-top: 7px;
+  font-size: 9px;
+  font-style: normal;
+  letter-spacing: 4px;
 }
 
 .tag {
-  background: linear-gradient(110deg,
-    #fff45b, #ffba08);
-  border: 1px solid #fff8a3;
-  box-shadow: 5px 5px 0 #086eff,
-    0 0 24px #ffe33250;
+  display: inline-block;
+  margin: 28px 0 9px;
+  padding: 4px 14px;
+  background: var(--lime);
+  box-shadow: 3px 4px 0 #141414;
+  transform: skew(-9deg);
+  font-size: 12px;
 }
 
 h1 {
-  font-style: italic;
+  margin: 0;
+  font-size: clamp(44px, 10.5vw, 72px);
+  line-height: 1.05;
   letter-spacing: -2px;
-  text-shadow: 3px 5px #0756c3,
-    0 0 30px #2994ff;
+  white-space: nowrap;
+  text-shadow: 2px 3px #fff;
 }
 
 h1 span {
-  color: #ffe326;
-  text-shadow: 2px 4px #936500,
-    0 0 25px #ffdb19a0;
+  color: var(--lime);
+  -webkit-text-stroke: 1px #1c1c1c;
+  filter: drop-shadow(2px 3px 0 #17171b);
 }
 
-/* บัตรสะสมแต้ม */
-.card {
-  border: 1px solid #4eacff;
-  border-top: 3px solid #ffe326;
-  border-radius: 19px;
-  background:
-    linear-gradient(145deg,
-      #164a8d, #071a3d 55%, #030d23);
+.subtitle {
+  display: table;
+  margin-top: 10px;
+  padding: 5px 8px;
+  background: #f5f5f1ed;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* กรอบจิ๊กซอว์ */
+
+.panel {
+  position: relative;
+  margin-bottom: 23px;
+  padding: 5px;
+  border: 1px solid #bfc0c7;
+  border-radius: 18px 5px 20px 5px;
+  background: linear-gradient(
+    135deg,
+    #fff 35%,
+    #c5c5cc 72%,
+    #fff
+  );
   box-shadow:
-    0 0 35px #087aff55,
-    inset 0 0 35px #1b7cff25;
+    0 6px 0 #1a1a1f,
+    0 10px 10px #0002,
+    inset 0 2px 0 #fff;
 }
 
-.card:after {
-  content: "01";
-  color: #ffffff07;
+.panel::before,
+.panel::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--paper);
+  pointer-events: none;
 }
 
-.eyebrow {
-  color: #bedbff;
-  font-weight: 700;
+.panel::before {
+  top: 45px;
+  left: -13px;
+  box-shadow: inset -3px 0 0 #bfc0c7;
+}
+
+.panel::after {
+  right: -13px;
+  bottom: 28px;
+  box-shadow: inset 3px 0 0 #bfc0c7;
+}
+
+.inside {
+  padding: 17px 18px 21px;
+  border-radius: 13px 3px 15px 3px;
+  background: linear-gradient(
+    115deg,
+    #fff,
+    #ededed
+  );
+}
+
+.cap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 15px;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.cap::after {
+  content: "//";
+  margin-left: auto;
+  color: #79a000;
+  font-size: 23px;
+}
+
+/* ข้อมูลผู้ใช้ */
+
+.user {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-left: 4px solid var(--lime);
+  background: #202024;
+  color: white;
+  font-size: 11px;
+  transform: skew(-8deg);
+}
+
+.user::before {
+  content: "●";
+  color: var(--lime);
+}
+
+.title {
+  margin: 12px 0;
+  font-size: clamp(23px, 6vw, 34px);
+  line-height: 1.3;
+}
+
+.balance-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 10px;
 }
 
 .balance {
-  font-size: clamp(72px, 18vw, 105px);
-  color: #ffe326;
-  text-shadow:
-    0 0 15px #ffe32665,
-    0 0 42px #ffc40040;
+  position: relative;
+  padding: 17px 18px;
+  border-radius: 4px 20px 4px 4px;
+  background: linear-gradient(
+    120deg,
+    #29292f,
+    #131316
+  );
+  color: white;
+  overflow: hidden;
 }
 
-.status {
-  background: #102b55;
-  border-color: #477ec7;
-  color: #c8ddff;
+.balance::after {
+  content: "✚";
+  position: absolute;
+  right: 8px;
+  bottom: 0;
+  color: #ffffff08;
+  font-size: 94px;
+  line-height: 1;
+  transform: rotate(15deg);
 }
 
-/* ปุ่มเช็กอิน */
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.balance strong {
+  display: block;
+  margin: 5px 0;
+  color: var(--lime);
+  font-size: 54px;
+  line-height: 1.05;
+}
+
+.unit {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.value {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 4px 4px 18px 4px;
+  background: linear-gradient(
+    135deg,
+    #d9ff57,
+    var(--lime)
+  );
+  box-shadow: inset 0 2px #f5ffae;
+}
+
+.value::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: calc(50% - 12px);
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f4f4f1;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.value b {
+  margin-top: 7px;
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+/* สถานะแต้ม */
+
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  border: 1px solid #25252c;
+  border-radius: 6px;
+  background: #4a4a52;
+  overflow: hidden;
+}
+
+.stat {
+  padding: 14px;
+  background: #202025;
+  color: white;
+}
+
+.stat .label {
+  color: #e0e0e4;
+  font-size: 11px;
+}
+
+.stat strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 26px;
+}
+
+.expiry {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #e6e6e3;
+  font-size: 13px;
+}
+
+.expiry strong {
+  margin-left: auto;
+  padding: 2px 8px;
+  background: var(--lime);
+  white-space: nowrap;
+}
+
+/* เช็กอิน */
+
+.rule-text {
+  margin: 0 0 15px;
+  padding-left: 13px;
+  border-left: 3px solid var(--lime);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
 .checkin {
-  border: 1px solid #fff39d;
-  border-radius: 12px;
-  background: linear-gradient(120deg,
-    #fff762, #ffbf00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 13px 10px;
+  border: 1px solid #92b800;
+  border-radius: 7px;
+  background: linear-gradient(
+    #dfff63,
+    #b7ed00
+  );
   box-shadow:
-    0 6px 0 #9c6b00,
-    0 0 30px #ffe32b65;
-  transition: transform .2s,
-    box-shadow .2s;
+    0 5px #719000,
+    inset 0 2px #f4ffc4;
+  color: #151515;
+  font: 800 22px "Noto Sans Thai", sans-serif;
+  text-shadow: 0 1px #ffffff70;
 }
 
-.checkin:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow:
-    0 8px 0 #9c6b00,
-    0 0 40px #ffe32b99;
+.checkin:disabled {
+  cursor: not-allowed;
 }
 
-/* อัตราแลกพอยท์ */
+.lock {
+  position: relative;
+  flex: none;
+  width: 15px;
+  height: 12px;
+  margin-left: 8px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+}
+
+.lock::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: -9px;
+  width: 7px;
+  height: 8px;
+  border: 2px solid currentColor;
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+}
+
+.hint {
+  margin: 15px 0 0;
+  color: #595963;
+  font-size: 10px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* อัตราแลกแต้ม */
+
 .rate {
-  border: 2px solid #ffde28;
-  border-radius: 11px;
-  background: linear-gradient(110deg,
-    #153f7a, #07142c);
-  box-shadow: 0 0 22px #ffde2830;
+  margin: 3px 0 22px;
+  padding: 13px 7px;
+  border-bottom: 4px solid var(--lime);
+  background: #1b1b20;
+  color: white;
+  font-size: clamp(17px, 4.5vw, 26px);
+  text-align: center;
+  clip-path: polygon(
+    15px 0,
+    100% 0,
+    calc(100% - 15px) 100%,
+    0 100%
+  );
 }
 
-/* การ์ดแพ็กโปรโมชั่น */
+.rate strong {
+  color: var(--lime);
+}
+
+/* แพ็กสะสมแต้ม */
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.heading::before {
+  content: "";
+  width: 7px;
+  height: 24px;
+  background: var(--lime);
+  box-shadow: 4px 0 #25252a;
+  transform: skew(-18deg);
+}
+
 .pack {
-  border: 1px solid #438cff;
-  border-left: 4px solid #ffe326;
-  border-radius: 12px;
-  background: linear-gradient(115deg,
-    #174a93, #081b3c 75%);
-  box-shadow: 0 5px 18px #0005;
-  transition: transform .2s;
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr 100px;
+  align-items: center;
+  gap: 8px;
+  min-height: 83px;
+  margin-bottom: 12px;
+  padding: 11px;
+  border: 1px solid #b8b8c0;
+  border-bottom: 4px solid #1c1c21;
+  border-radius: 13px 4px 13px 4px;
+  background: linear-gradient(
+    115deg,
+    #fff,
+    #e3e3e7
+  );
+  box-shadow: 0 4px 6px #0002;
+  transition: transform .18s;
 }
 
-.pack:hover {
-  transform: translateX(3px);
+.pack::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: calc(50% - 9px);
+  width: 17px;
+  height: 17px;
+  border-right: 1px solid #b8b8c0;
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.gem {
+  border-radius: 8px;
+  background: #222126;
+  font-size: 30px;
+  line-height: 46px;
+  text-align: center;
 }
 
 .diamond {
-  color: #fff;
-  text-shadow: 0 0 12px #57a8ff65;
+  font-size: clamp(16px, 4.5vw, 22px);
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.price {
+  margin-top: 3px;
+  color: #43434c;
+  font-size: 12px;
 }
 
 .reward {
-  background: linear-gradient(140deg,
-    #fff57a, #ffc400);
-  box-shadow: 0 0 16px #ffe32b40;
+  position: relative;
+  padding: 7px 3px 8px;
+  border-radius: 7px 3px 12px 3px;
+  background: linear-gradient(
+    135deg,
+    #deff6a,
+    var(--lime)
+  );
+  box-shadow:
+    0 3px #7a9800,
+    inset 0 1px #f4ffc0;
+  color: #121215;
+  text-align: center;
 }
 
-.heading:before {
-  box-shadow: 0 0 16px #ffe326;
+.reward::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--lime);
 }
 
-/* เงื่อนไขและข้อความล่าง */
-.info {
-  border: 1px solid #3368ad;
-  border-radius: 14px;
-  padding: 20px 13px;
-  background: #071c3caa;
-  box-shadow: inset 0 0 20px #1466d115;
+.reward b {
+  display: block;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.reward small {
+  display: block;
+  margin-top: 3px;
+  font-size: 9px;
+  letter-spacing: .3px;
+}
+
+/* ข้อมูลท้ายหน้า */
+
+.help {
+  margin-top: 23px;
+}
+
+.help .inside {
+  padding: 22px 13px;
+  background:
+    radial-gradient(
+      ellipse at 100% 100%,
+      #6724b84d,
+      transparent 65%
+    ),
+    #1c1c22;
+  color: white;
+  text-align: center;
+}
+
+.help .cap {
+  justify-content: center;
+  color: var(--lime);
+  font-size: 14px;
+}
+
+.help p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.help strong {
+  display: inline-block;
+  margin: 9px 0 12px;
+  padding: 5px 13px;
+  background: var(--lime);
+  color: #17171b;
+  font-size: 17px;
+  transform: skew(-5deg);
+}
+
+.reset {
+  color: #e6e6ec;
+  font-size: 12px;
+}
+
+.note {
+  margin: 22px 0 15px;
+  font-size: 10px;
+  line-height: 1.8;
+  text-align: center;
 }
 
 .footer {
-  border-top: 1px solid #2f5482;
-  padding-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #bcbcc3;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
-/* รองรับหน้าจอมือถือ */
-@media (max-width: 390px) {
-  .brand { font-size: 29px; }
-  .pack { padding: 12px 10px; }
-  .diamond { font-size: 18px; }
-  .reward { padding: 8px; }
-  .checkin { font-size: 21px; }
+.demo {
+  display: table;
+  margin: 9px auto 0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #e8dfef;
+  color: #5a4e69;
+  font-size: 10px;
+  letter-spacing: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pack, .checkin {
-    transition: none;
+/* มือถือและหน้าจอใหญ่ */
+
+@media (hover: hover) {
+  .pack:hover {
+    transform: translateY(-2px);
   }
 }
 
-/* FLOWX — BLUELOCK IMAGE BACKGROUND */
+@media (min-width: 600px) {
+  .hero {
+    height: 340px;
+    padding-top: 28px;
+  }
 
-.page {
-  background-color: #030d24;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(2, 10, 30, 0.35) 0%,
-      rgba(2, 10, 30, 0.60) 45%,
-      rgba(2, 10, 30, 0.78) 100%
-    ),
-    url("flowx-bg.png");
+  .hero .tag {
+    margin-top: 35px;
+  }
 
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: cover;
+  .inside {
+    padding: 20px 24px 25px;
+  }
+
+  .pack {
+    grid-template-columns: 58px 1fr 120px;
+    min-height: 94px;
+  }
+
+  .diamond {
+    font-size: 26px;
+  }
 }
 
-/* เพิ่มความชัดให้บัตรและข้อความ */
-.card {
-  background: linear-gradient(
-    145deg,
-    rgba(12, 40, 91, 0.94),
-    rgba(3, 12, 34, 0.97)
-  );
-  backdrop-filter: blur(8px);
+@media (max-width: 360px) {
+  .page {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .hero {
+    margin-right: -12px;
+    margin-left: -12px;
+    padding-left: 18px;
+  }
+
+  .inside {
+    padding: 15px 12px 19px;
+  }
+
+  .balance-row {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  .balance {
+    padding: 14px 12px;
+  }
+
+  .value b {
+    font-size: 20px;
+  }
+
+  .pack {
+    grid-template-columns: 34px 1fr 82px;
+    gap: 7px;
+    padding: 10px;
+  }
+
+  .gem {
+    font-size: 23px;
+  }
+
+  .price {
+    font-size: 11px;
+  }
+
+  .cap {
+    font-size: 15px;
+  }
+
+  .expiry {
+    font-size: 11px;
+  }
 }
 
-.pack {
-  background: linear-gradient(
-    110deg,
-    rgba(17, 57, 116, 0.94),
-    rgba(3, 15, 41, 0.96)
-  );
-  backdrop-filter: blur(5px);
+@media (prefers-reduced-motion: reduce) {
+  .pack {
+    transition: none;
+  }
 }
-
-.info {
-  background: rgba(3, 16, 43, 0.92);
-  backdrop-filter: blur(6px);
-}
-
-/* FIX CYBER HUD HEADER */
-
-.hud-cap {
-  top: 9px;
-  left: 18px;
-  transform: none;
-}
-
-.hud-main,
-.hud-mini {
-  padding-top: 53px;
-}
-  
 </style>
 </head>
+
 <body>
 <main class="page">
 
-<header class="top">
-  <div class="brand">FLOW<span>X</span></div>
-  <div class="small">GAMING CENTER</div>
-  <div class="tag">MLBB EXCLUSIVE</div>
-  <h1>FLOW <span>POINT</span></h1>
-  <div class="subtitle">บัตรสะสมแต้มเกม MLBB</div>
-</header>
-
-<section class="hud-wrap">
-
-  <div class="hud-box hud-main">
-    <div class="hud-cap">FLOWX // USER PANEL</div>
-    <div class="hud-dot dot-a"></div>
-    <div class="hud-dot dot-b"></div>
-    <div class="hud-dot dot-c"></div>
-
-    <div class="hud-user">USERNAME</div>
-    <div class="hud-title">MY FLOW POINT</div>
-
-    <div class="hud-balance-row">
-      <div class="hud-balance">
-        <span class="hud-balance-label">แต้มคงเหลือ</span>
-        <strong id="point-balance">—</strong>
-        <small>FLOW POINT</small>
-      </div>
-
-      <div class="hud-side-stat">
-        <span>ใช้ลดราคาได้</span>
-        <b id="point-value">— บาท</b>
-      </div>
+  <header class="hero">
+    <div class="brand tech">
+      FLOW<span>X</span>
+      <small>GAMING CENTER</small>
     </div>
-  </div>
 
-  <div class="hud-box hud-mini">
-    <div class="hud-cap">POINT STATUS</div>
-    <div class="hud-mini-grid">
-      <div class="hud-mini-card">
-        <span>แต้มสะสมทั้งหมด</span>
-        <strong id="point-earned">—</strong>
+    <div class="tag tech">MLBB EXCLUSIVE</div>
+
+    <h1 class="tech">
+      FLOW <span>POINT</span>
+    </h1>
+
+    <div class="subtitle">
+      บัตรสะสมแต้มเกม MLBB
+    </div>
+  </header>
+
+  <!-- ข้อมูลผู้ใช้ -->
+  <section class="panel" aria-labelledby="user-heading">
+    <div class="inside">
+
+      <h2 class="cap tech" id="user-heading">
+        FLOWX // USER PANEL
+      </h2>
+
+      <div class="user tech">USERNAME</div>
+
+      <div class="title tech">MY FLOW POINT</div>
+
+      <div class="balance-row">
+        <div class="balance">
+          <span class="label">แต้มคงเหลือ</span>
+          <strong id="point-balance">—</strong>
+          <span class="unit tech">FLOW POINT</span>
+        </div>
+
+        <div class="value">
+          <span class="label">ใช้ลดราคาได้</span>
+          <b id="point-value">— บาท</b>
+        </div>
       </div>
-      <div class="hud-mini-card">
-        <span>แต้มที่ใช้ไปแล้ว</span>
-        <strong id="point-used">—</strong>
+
+    </div>
+  </section>
+
+  <!-- สถานะแต้ม -->
+  <section class="panel" aria-labelledby="status-heading">
+    <div class="inside">
+
+      <h2 class="cap tech" id="status-heading">
+        POINT STATUS
+      </h2>
+
+      <div class="status-grid">
+        <div class="stat">
+          <span class="label">แต้มสะสมทั้งหมด</span>
+          <strong id="point-earned">—</strong>
+        </div>
+
+        <div class="stat">
+          <span class="label">แต้มที่ใช้ไปแล้ว</span>
+          <strong id="point-used">—</strong>
+        </div>
       </div>
-      <div class="hud-mini-card full">
-        <span>แต้มจะรีเซ็ต</span>
+
+      <div class="expiry">
+        <span aria-hidden="true">↻</span>
+        แต้มจะรีเซ็ต
         <strong id="point-expiry">ทุก 3 เดือน</strong>
       </div>
+
     </div>
+  </section>
+
+  <!-- เช็กอิน -->
+  <section class="panel" aria-labelledby="rules-heading">
+    <div class="inside">
+
+      <h2 class="cap tech" id="rules-heading">
+        RULES / CHECK-IN
+      </h2>
+
+      <p class="rule-text">
+        เติมแพ็กที่ร่วมรายการแล้วรับ FLOW POINT ได้เลย<br>
+        ใช้แต้มแลกแพ็ก หรือใช้ลดราคาแพ็กเกจได้
+      </p>
+
+      <button
+        class="checkin"
+        disabled
+        aria-describedby="checkin-note"
+      >
+        <span aria-hidden="true">ϟ</span>
+        เช็กอินรับแต้ม
+        <span class="lock" aria-hidden="true"></span>
+      </button>
+
+      <p class="hint" id="checkin-note">
+        ปุ่มจะเปิดใช้งานหลังเชื่อมระบบ LINE และยืนยันออเดอร์
+      </p>
+
+    </div>
+  </section>
+
+  <div class="rate tech">
+    1 FLOW POINT = <strong>1 บาท</strong>
   </div>
 
-  <div class="hud-box hud-mini">
-    <div class="hud-cap">RULES / CHECK-IN</div>
-    <div class="hud-rule-text">
-      เติมแพ็กที่ร่วมรายการแล้วรับ FLOW POINT ได้เลย<br>
-      ใช้แต้มแลกแพ็ก หรือใช้ลดราคาแพ็กเกจได้
+  <!-- แพ็กที่ร่วมรายการ -->
+  <section aria-labelledby="packs-heading">
+
+    <h2 class="heading" id="packs-heading">
+      แพ็กที่ได้รับแต้ม
+    </h2>
+
+    <article class="pack">
+      <div class="gem" aria-hidden="true">💎</div>
+
+      <div>
+        <div class="diamond">1,412 เพชร</div>
+        <div class="price">ราคา 645 บาท</div>
+      </div>
+
+      <div class="reward tech">
+        <b>20</b>
+        <small>FLOW POINT</small>
+      </div>
+    </article>
+
+    <article class="pack">
+      <div class="gem" aria-hidden="true">💎</div>
+
+      <div>
+        <div class="diamond">3,688 เพชร</div>
+        <div class="price">ราคา 1,580 บาท</div>
+      </div>
+
+      <div class="reward tech">
+        <b>50</b>
+        <small>FLOW POINT</small>
+      </div>
+    </article>
+
+    <article class="pack">
+      <div class="gem" aria-hidden="true">💎</div>
+
+      <div>
+        <div class="diamond">9,288 เพชร</div>
+        <div class="price">ราคา 3,950 บาท</div>
+      </div>
+
+      <div class="reward tech">
+        <b>125</b>
+        <small>FLOW POINT</small>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ข้อมูลการใช้แต้ม -->
+  <aside class="panel help">
+    <div class="inside">
+
+      <h2 class="cap tech">
+        YOUR POINTS. YOUR NEXT PLAY.
+      </h2>
+
+      <p>
+        🎟️ ใช้แต้มแลกแพ็กเกม หรือใช้ลดราคาได้<br>
+        อยากใช้แต้มลดราคาแพ็กไหน
+      </p>
+
+      <strong>แจ้งแอดมินได้เลยจ้า!</strong>
+
+      <div class="reset">
+        ⏳ แต้มรีเซ็ตทุก 3 เดือน
+      </div>
+
     </div>
+  </aside>
 
-    <button class="hud-checkin" disabled>
-      ⚡ เช็กอินรับแต้ม
-    </button>
+  <p class="note">
+    เฉพาะแพ็ก MLBB ที่ร่วมรายการเท่านั้น
+  </p>
 
-    <p class="hud-note">
-      ปุ่มจะเปิดใช้งานหลังเชื่อมระบบ LINE และยืนยันออเดอร์
+  <footer class="footer">
+    FLOWX GAMING CENTER © 2026
+
+    <p class="demo">
+      DEMO — ระบบเช็กอินยังไม่เปิดใช้งาน
     </p>
-  </div>
-
-</section>
-
-<div class="rate">
-  1 FLOW POINT = <strong>1 บาท</strong>
-</div>
-
-<div class="heading">แพ็กที่ได้รับแต้ม</div>
-
-<div class="pack">
-  <div>
-    <div class="diamond">💎 1,412 เพชร</div>
-    <div class="price">ราคา 645 บาท</div>
-  </div>
-  <div class="reward"><b>20</b>FLOW POINT</div>
-</div>
-
-<div class="pack">
-  <div>
-    <div class="diamond">💎 3,688 เพชร</div>
-    <div class="price">ราคา 1,580 บาท</div>
-  </div>
-  <div class="reward"><b>50</b>FLOW POINT</div>
-</div>
-
-<div class="pack">
-  <div>
-    <div class="diamond">💎 9,288 เพชร</div>
-    <div class="price">ราคา 3,950 บาท</div>
-  </div>
-  <div class="reward"><b>125</b>FLOW POINT</div>
-</div>
-
-<div class="info">
-  🎟️ ใช้แต้มแลกแพ็กเกม หรือใช้ลดราคาได้<br>
-  อยากใช้แต้มลดราคาแพ็กไหน<br>
-  <strong>แจ้งแอดมินได้เลยจ้า!</strong><br>
-  ⏳ แต้มรีเซ็ตทุก 3 เดือน
-</div>
-
-<div class="note">
-  เฉพาะแพ็ก MLBB ที่ร่วมรายการเท่านั้น
-</div>
-
-<footer class="footer">
-  FLOWX GAMING CENTER © 2026
-  <p>DEMO — ระบบเช็กอินยังไม่เปิดใช้งาน</p>
-</footer>
+  </footer>
 
 </main>
 </body>
 </html>
+```

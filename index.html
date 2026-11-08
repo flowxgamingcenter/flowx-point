@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -216,6 +215,210 @@ h1 span{color:var(--yellow)}
   margin-top:36px;
   color:#648bbe;
   font-size:12px;
+}
+
+/* FLOW POINT — BLUELOCK THEME V2 */
+
+body {
+  background: #020713;
+}
+
+.page {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 0%, #086dff80, transparent 42%),
+    radial-gradient(ellipse at 100% 55%, #064fb84d, transparent 48%),
+    repeating-linear-gradient(90deg,
+      transparent 0 62px, #3e8fff0b 63px 64px),
+    repeating-linear-gradient(0deg,
+      transparent 0 62px, #3e8fff0b 63px 64px),
+    linear-gradient(180deg, #081e42, #020713 78%);
+  box-shadow: 0 0 65px #0753c52b;
+}
+
+.page:before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  width: auto;
+  height: 370px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(145deg,
+      transparent 38%, #3298ff24 40%,
+      transparent 43%),
+    linear-gradient(160deg,
+      transparent 58%, #ffe52a15 60%,
+      transparent 63%);
+  pointer-events: none;
+}
+
+.page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ส่วนหัว */
+.top {
+  padding: 15px 6px 8px;
+}
+
+.brand {
+  font-size: 35px;
+  font-style: italic;
+  text-shadow: 0 0 25px #198bff99;
+}
+
+.brand span {
+  color: #ffe326;
+}
+
+.tag {
+  background: linear-gradient(110deg,
+    #fff45b, #ffba08);
+  border: 1px solid #fff8a3;
+  box-shadow: 5px 5px 0 #086eff,
+    0 0 24px #ffe33250;
+}
+
+h1 {
+  font-style: italic;
+  letter-spacing: -2px;
+  text-shadow: 3px 5px #0756c3,
+    0 0 30px #2994ff;
+}
+
+h1 span {
+  color: #ffe326;
+  text-shadow: 2px 4px #936500,
+    0 0 25px #ffdb19a0;
+}
+
+/* บัตรสะสมแต้ม */
+.card {
+  border: 1px solid #4eacff;
+  border-top: 3px solid #ffe326;
+  border-radius: 19px;
+  background:
+    linear-gradient(145deg,
+      #164a8d, #071a3d 55%, #030d23);
+  box-shadow:
+    0 0 35px #087aff55,
+    inset 0 0 35px #1b7cff25;
+}
+
+.card:after {
+  content: "01";
+  color: #ffffff07;
+}
+
+.eyebrow {
+  color: #bedbff;
+  font-weight: 700;
+}
+
+.balance {
+  font-size: clamp(72px, 18vw, 105px);
+  color: #ffe326;
+  text-shadow:
+    0 0 15px #ffe32665,
+    0 0 42px #ffc40040;
+}
+
+.status {
+  background: #102b55;
+  border-color: #477ec7;
+  color: #c8ddff;
+}
+
+/* ปุ่มเช็กอิน */
+.checkin {
+  border: 1px solid #fff39d;
+  border-radius: 12px;
+  background: linear-gradient(120deg,
+    #fff762, #ffbf00);
+  box-shadow:
+    0 6px 0 #9c6b00,
+    0 0 30px #ffe32b65;
+  transition: transform .2s,
+    box-shadow .2s;
+}
+
+.checkin:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 #9c6b00,
+    0 0 40px #ffe32b99;
+}
+
+/* อัตราแลกพอยท์ */
+.rate {
+  border: 2px solid #ffde28;
+  border-radius: 11px;
+  background: linear-gradient(110deg,
+    #153f7a, #07142c);
+  box-shadow: 0 0 22px #ffde2830;
+}
+
+/* การ์ดแพ็กโปรโมชั่น */
+.pack {
+  border: 1px solid #438cff;
+  border-left: 4px solid #ffe326;
+  border-radius: 12px;
+  background: linear-gradient(115deg,
+    #174a93, #081b3c 75%);
+  box-shadow: 0 5px 18px #0005;
+  transition: transform .2s;
+}
+
+.pack:hover {
+  transform: translateX(3px);
+}
+
+.diamond {
+  color: #fff;
+  text-shadow: 0 0 12px #57a8ff65;
+}
+
+.reward {
+  background: linear-gradient(140deg,
+    #fff57a, #ffc400);
+  box-shadow: 0 0 16px #ffe32b40;
+}
+
+.heading:before {
+  box-shadow: 0 0 16px #ffe326;
+}
+
+/* เงื่อนไขและข้อความล่าง */
+.info {
+  border: 1px solid #3368ad;
+  border-radius: 14px;
+  padding: 20px 13px;
+  background: #071c3caa;
+  box-shadow: inset 0 0 20px #1466d115;
+}
+
+.footer {
+  border-top: 1px solid #2f5482;
+  padding-top: 20px;
+}
+
+/* รองรับหน้าจอมือถือ */
+@media (max-width: 390px) {
+  .brand { font-size: 29px; }
+  .pack { padding: 12px 10px; }
+  .diamond { font-size: 18px; }
+  .reward { padding: 8px; }
+  .checkin { font-size: 21px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pack, .checkin {
+    transition: none;
+  }
 }
 </style>
 </head>

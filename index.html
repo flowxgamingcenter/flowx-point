@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FLOW POINT | FLOWX</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1677ff;
+  --yellow:#ffe32b;
+  --navy:#050f28;
+  --white:#f7faff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  color:var(--white);
+  font-family:Kanit,sans-serif;
+  background:#030917;
+}
+.page{
+  min-height:100vh;
+  max-width:650px;
+  margin:auto;
+  padding:30px 18px 55px;
+  position:relative;
+  overflow:hidden;
+  background:
+   radial-gradient(ellipse at 75% 5%,#1766c570,transparent 36%),
+   radial-gradient(ellipse at 0% 65%,#0952a65c,transparent 45%),
+   repeating-linear-gradient(150deg,transparent 0 75px,#1681ff0b 76px 78px),
+   linear-gradient(160deg,#071632,#030816 70%);
+}
+.page:before{
+  content:"";
+  position:absolute;
+  width:440px;height:440px;
+  border:2px solid #247dff35;
+  border-radius:50%;
+  top:-190px;right:-180px;
+  box-shadow:0 0 90px #126aff55;
+  pointer-events:none;
+}
+.top{
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.brand{
+  font-size:31px;
+  font-weight:900;
+  font-style:italic;
+  letter-spacing:2px;
+}
+.brand span{color:var(--yellow)}
+.small{
+  font-size:11px;
+  letter-spacing:5px;
+  opacity:.8;
+}
+.tag{
+  display:inline-block;
+  margin-top:17px;
+  background:var(--yellow);
+  color:#05122c;
+  font-weight:800;
+  padding:5px 21px;
+  transform:skew(-9deg);
+  box-shadow:5px 5px 0 #087bff;
+}
+h1{
+  margin:17px 0 0;
+  font-size:clamp(42px,11vw,68px);
+  line-height:1;
+  font-style:italic;
+  font-weight:900;
+  letter-spacing:-2px;
+  text-shadow:4px 5px 0 #0757cc,0 0 35px #1788ff;
+}
+h1 span{color:var(--yellow)}
+.subtitle{
+  margin:12px 0 26px;
+  font-size:16px;
+}
+.card{
+  position:relative;
+  border:2px solid #4b9dff;
+  border-radius:24px;
+  padding:25px 20px;
+  background:
+   linear-gradient(130deg,#132d60eb,#060f27f5);
+  box-shadow:0 0 35px #087aff45,inset 0 0 30px #1a6dff1e;
+  overflow:hidden;
+}
+.card:after{
+  content:"10";
+  position:absolute;
+  right:-12px;top:25px;
+  font-size:170px;
+  font-weight:900;
+  color:#ffffff08;
+  line-height:1;
+  pointer-events:none;
+}
+.card>*{position:relative;z-index:1}
+.eyebrow{
+  color:#a7ceff;
+  font-size:13px;
+  letter-spacing:2px;
+}
+.balance{
+  font-size:76px;
+  font-weight:900;
+  line-height:1.2;
+  color:var(--yellow);
+  text-shadow:0 0 30px #ffdf2a66;
+}
+.unit{
+  font-size:15px;
+  letter-spacing:2px;
+}
+.status{
+  display:inline-block;
+  background:#1c365b;
+  border:1px solid #4776b9;
+  border-radius:30px;
+  padding:5px 12px;
+  font-size:12px;
+  margin-top:9px;
+}
+.checkin{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:17px 12px;
+  margin-top:23px;
+  font:800 24px Kanit,sans-serif;
+  color:#081227;
+  background:linear-gradient(120deg,#fff76a,#ffc900);
+  box-shadow:0 7px 0 #a66d00,0 0 28px #ffe23565;
+}
+.checkin:disabled{
+  cursor:not-allowed;
+  opacity:.75;
+}
+.rate{
+  margin:26px 0;
+  text-align:center;
+  border:1px solid #e9dd4e;
+  padding:14px;
+  border-radius:12px;
+  font-size:19px;
+  font-weight:800;
+  background:#ffe32b12;
+}
+.rate strong{color:var(--yellow)}
+.heading{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:24px 0 13px;
+  font-size:21px;
+  font-weight:800;
+}
+.heading:before{
+  content:"";
+  width:6px;height:26px;
+  background:var(--yellow);
+  transform:skew(-15deg);
+}
+.pack{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:12px;
+  margin:10px 0;
+  padding:15px;
+  border:1px solid #3279d7;
+  border-radius:13px;
+  background:linear-gradient(110deg,#19396a,#08162f);
+}
+.diamond{font-weight:800;font-size:21px}
+.price{color:#a9d0ff;font-size:13px}
+.reward{
+  padding:8px 12px;
+  border-radius:9px;
+  color:#09132c;
+  background:var(--yellow);
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+}
+.reward b{
+  display:block;
+  font-size:29px;
+  line-height:1.1;
+}
+.info{
+  border-top:1px solid #355c8c;
+  padding-top:20px;
+  margin-top:25px;
+  text-align:center;
+  line-height:1.9;
+}
+.info strong{color:var(--yellow)}
+.note{
+  color:#b5c9e9;
+  font-size:12px;
+  margin-top:15px;
+  text-align:center;
+}
+.footer{
+  text-align:center;
+  margin-top:36px;
+  color:#648bbe;
+  font-size:12px;
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<header class="top">
+  <div class="brand">FLOW<span>X</span></div>
+  <div class="small">GAMING CENTER</div>
+  <div class="tag">MLBB EXCLUSIVE</div>
+  <h1>FLOW <span>POINT</span></h1>
+  <div class="subtitle">บัตรสะสมแต้มเกม MLBB</div>
+</header>
+
+<section class="card">
+  <div class="eyebrow">MY FLOW POINT WALLET</div>
+  <div class="balance">—</div>
+  <div class="unit">FLOW POINT</div>
+  <div class="status">ยังไม่เชื่อมข้อมูลแต้มจริง</div>
+  <button class="checkin" disabled>
+    ⚡ เช็กอินรับแต้ม
+  </button>
+  <p class="note">
+    ปุ่มจะเปิดใช้งานหลังเชื่อมระบบ LINE และยืนยันออเดอร์
+  </p>
+</section>
+
+<div class="rate">
+  1 FLOW POINT = <strong>1 บาท</strong>
+</div>
+
+<div class="heading">แพ็กที่ได้รับแต้ม</div>
+
+<div class="pack">
+  <div>
+    <div class="diamond">💎 1,412 เพชร</div>
+    <div class="price">ราคา 645 บาท</div>
+  </div>
+  <div class="reward"><b>20</b>FLOW POINT</div>
+</div>
+
+<div class="pack">
+  <div>
+    <div class="diamond">💎 3,688 เพชร</div>
+    <div class="price">ราคา 1,580 บาท</div>
+  </div>
+  <div class="reward"><b>50</b>FLOW POINT</div>
+</div>
+
+<div class="pack">
+  <div>
+    <div class="diamond">💎 9,288 เพชร</div>
+    <div class="price">ราคา 3,950 บาท</div>
+  </div>
+  <div class="reward"><b>125</b>FLOW POINT</div>
+</div>
+
+<div class="info">
+  🎟️ ใช้แต้มแลกแพ็กเกม หรือใช้ลดราคาได้<br>
+  อยากใช้แต้มลดราคาแพ็กไหน<br>
+  <strong>แจ้งแอดมินได้เลยจ้า!</strong><br>
+  ⏳ แต้มรีเซ็ตทุก 3 เดือน
+</div>
+
+<div class="note">
+  เฉพาะแพ็ก MLBB ที่ร่วมรายการเท่านั้น
+</div>
+
+<footer class="footer">
+  FLOWX GAMING CENTER © 2026
+  <p>DEMO — ระบบเช็กอินยังไม่เปิดใช้งาน</p>
+</footer>
+
+</main>
+</body>
+</html>
